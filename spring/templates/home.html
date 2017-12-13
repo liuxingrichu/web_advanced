@@ -21,9 +21,26 @@
                     <td>{{ row.username }}</td>
                     <td>{{ row.email }}</td>
                     <td>{{ row.gender }}</td>
+{#                    <td>#}
+{#                        <a href="/detail?nid={{ row.id }}">详细信息</a>#}
+{#                        <a class="del" href="#" row-id="{{ row.id }}">删除</a>#}
+{#                    </td>#}
                 </tr>
             {% endfor %}
         </table>
     </div>
+{#    $('.del').click(function(){#}
+{#        var row-id = $(this).attr('row-id');#}
+{#        $('#nid').val(row_id);#}
+{#    })#}
+{#    <div>#}
+{#        <form action="/del_host" method="post">#}
+{#            <input style="display:none;" id="nid" type="text" name="nid" />#}
+{#            <p>#}
+{#                <input type="submit" value="确定"/>#}
+{#                <input type="button" value="取消"/>#}
+{#            </p>#}
+{#        </form>#}
+{#    </div>#}
 </body>
 </html>

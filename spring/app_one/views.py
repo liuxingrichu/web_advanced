@@ -22,9 +22,9 @@ def login(request):
 
 
 USER_LIST = [
-    {"username": "Tom", "email": "tom@163.com", "gender": "M"},
-    {"username": "Lucy", "email": "lucy@163.com", "gender": "F"},
-    {"username": "Seven", "email": "seven@163.com", "gender": "M"},
+    {"id":1, "username": "Tom", "email": "tom@163.com", "gender": "M"},
+    {"id":2, "username": "Lucy", "email": "lucy@163.com", "gender": "F"},
+    {"id":3, "username": "Seven", "email": "seven@163.com", "gender": "M"},
 ]
 
 
