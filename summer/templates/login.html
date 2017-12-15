@@ -5,12 +5,32 @@
     <title></title>
 </head>
 <body>
-    <form action="/login" method="post">
+    <form action="/login" method="post" enctype="multipart/form-data">
         <p>
             <input type="text" name="username" placeholder="用户名"/>
         </p>
         <p>
             <input type="password" name="pwd" placeholder="密码"/>
+        </p>
+        <p>
+           F: <input type="radio" name="gender" value="1"/>
+           M: <input type="radio" name="gender" value="2"/>
+           NA: <input type="radio" name="gender" value="3"/>
+        </p>
+        <p>
+           football: <input type="checkbox" name="favor" value="11"/>
+           basketball: <input type="checkbox" name="favor" value="22"/>
+           badminton: <input type="checkbox" name="favor" value="33"/>
+        </p>
+        <p>
+            <select name="city" multiple>
+                <option name="bj">北京</option>
+                <option name="sh">上海</option>
+                <option name="gz">广州</option>
+            </select>
+        </p>
+        <p>
+            <input type="file" name="file"/>
         </p>
         <input type="submit" value="提交"/>
     </form>
