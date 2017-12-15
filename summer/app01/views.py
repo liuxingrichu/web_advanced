@@ -24,3 +24,22 @@ def login(request):
 
 def index(request):
     return HttpResponse("index")
+
+
+from django.views import View
+
+
+class Home(View):
+    def dispatch(self, request, *args, **kwargs):
+        print("before")
+        result = super(Home, self).dispatch(request, *args, **kwargs)
+        print("after")
+        return result
+
+    def get(self, request):
+        print(request.method)
+        return render(request, 'home.html')
+
+    def post(self, request):
+        print(request.method)
+        return render(request, 'home.html')
