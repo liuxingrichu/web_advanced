@@ -22,10 +22,6 @@ def login(request):
         return redirect("/login")
 
 
-def index(request):
-    return HttpResponse("index")
-
-
 from django.views import View
 
 
@@ -43,3 +39,28 @@ class Home(View):
     def post(self, request):
         print(request.method)
         return render(request, 'home.html')
+
+
+# USER_DICT = {
+#     "k1": "v1",
+#     "k2": "v2",
+#     "k3": "v3",
+# }
+
+
+
+
+def index(request):
+    return render(request, 'index.html', {"user_dict": USER_DICT})
+
+USER_DICT={
+    "1":{"name": "root1", "email": "root1@163.com"},
+    "2":{"name": "root2", "email": "root2@163.com"},
+    "3":{"name": "root3", "email": "root3@163.com"},
+    "4":{"name": "root4", "email": "root4@163.com"},
+}
+
+def detail(request):
+    nid = request.GET.get("nid")
+    detail_info = USER_DICT.get(nid)
+    return render(request, "detail.html", {"detail_info":detail_info})

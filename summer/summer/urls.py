@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^index', views.index),
     url(r'^login', views.login),
     url(r'^home', views.Home.as_view()),
+    url(r'^detail', views.detail),
 ]
