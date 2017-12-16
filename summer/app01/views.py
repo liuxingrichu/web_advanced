@@ -68,6 +68,14 @@ USER_DICT = {
 #     return render(request, "detail.html", {"detail_info": detail_info})
 
 
-def detail(request, nid):
-    detail_info = USER_DICT.get(nid)
+# def detail(request, nid, uid):
+#     detail_info = USER_DICT.get(nid)
+#     return render(request, "detail.html", {"detail_info": detail_info})
+
+# def detail(request, *args):
+#     detail_info = USER_DICT.get(args[0])
+#     return render(request, "detail.html", {"detail_info": detail_info})
+
+def detail(request, *args, **kwargs):
+    detail_info = USER_DICT.get(kwargs.get("nid"))
     return render(request, "detail.html", {"detail_info": detail_info})
