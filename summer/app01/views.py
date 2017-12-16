@@ -53,14 +53,21 @@ class Home(View):
 def index(request):
     return render(request, 'index.html', {"user_dict": USER_DICT})
 
-USER_DICT={
-    "1":{"name": "root1", "email": "root1@163.com"},
-    "2":{"name": "root2", "email": "root2@163.com"},
-    "3":{"name": "root3", "email": "root3@163.com"},
-    "4":{"name": "root4", "email": "root4@163.com"},
+
+USER_DICT = {
+    "1": {"name": "root1", "email": "root1@163.com"},
+    "2": {"name": "root2", "email": "root2@163.com"},
+    "3": {"name": "root3", "email": "root3@163.com"},
+    "4": {"name": "root4", "email": "root4@163.com"},
 }
 
-def detail(request):
-    nid = request.GET.get("nid")
+
+# def detail(request):
+#     nid = request.GET.get("nid")
+#     detail_info = USER_DICT.get(nid)
+#     return render(request, "detail.html", {"detail_info": detail_info})
+
+
+def detail(request, nid):
     detail_info = USER_DICT.get(nid)
-    return render(request, "detail.html", {"detail_info":detail_info})
+    return render(request, "detail.html", {"detail_info": detail_info})
