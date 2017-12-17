@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
 """summer URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -14,10 +17,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
-from django.conf.urls import include
+
+from app02 import views
 
 urlpatterns = [
-    url(r'^cmdb/', include("app01.urls")),
-    url(r'^monitor/', include("app02.urls")),
+    url(r'^login', views.login),
 ]

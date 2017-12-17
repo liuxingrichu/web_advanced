@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+
 """summer URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,9 +18,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.conf.urls import include
+
+from app01 import views
 
 urlpatterns = [
-    url(r'^cmdb/', include("app01.urls")),
-    url(r'^monitor/', include("app02.urls")),
+    url(r'^admin/', admin.site.urls),
+    url(r'^bjbjbj/(?P<nid>\d+)/(?P<uid>\d+)', views.index, name="index"),
+    url(r'^login', views.login),
+    url(r'^home', views.Home.as_view()),
+    # url(r'^detail', views.detail),
+    # url(r'^detail-(\d+).html', views.detail),
+    # url(r'^detail-(\d+)-(\d+).html', views.detail),
+    # url(r'^detail-(?P<nid>\d+)-(?P<uid>\d+).html', views.detail),
+    url(r'^detail-(?P<nid>\d+).html', views.detail),
 ]
