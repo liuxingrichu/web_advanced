@@ -31,5 +31,10 @@
             <li><a target="_blank" href="/detail-{{ k }}.html">{{ v.name }}</a></li>
         {% endfor %}
     </ul>
+    <form action="{% url 'index' nid=1 uid=3 %}" method="post">
+        <p><input type="text" name="username" placeholder="用户名"/></p>
+        <p><input type="text" name="email" placeholder="邮箱"/></p>
+        <p><input type="submit" value="提交"/></p>
+    </form>
 </body>
 </html>

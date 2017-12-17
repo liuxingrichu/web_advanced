@@ -50,7 +50,10 @@ class Home(View):
 
 
 
-def index(request):
+def index(request, nid, uid):
+    from django.urls import reverse
+    v = reverse("index", kwargs={"nid": nid, "uid": uid})
+    print(v)
     return render(request, 'index.html', {"user_dict": USER_DICT})
 
 
@@ -76,6 +79,10 @@ USER_DICT = {
 #     detail_info = USER_DICT.get(args[0])
 #     return render(request, "detail.html", {"detail_info": detail_info})
 
-def detail(request, *args, **kwargs):
-    detail_info = USER_DICT.get(kwargs.get("nid"))
+# def detail(request, *args, **kwargs):
+#     detail_info = USER_DICT.get(kwargs.get("nid"))
+#     return render(request, "detail.html", {"detail_info": detail_info})
+
+def detail(request, nid):
+    detail_info = USER_DICT.get(nid)
     return render(request, "detail.html", {"detail_info": detail_info})
