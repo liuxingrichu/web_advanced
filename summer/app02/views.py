@@ -7,12 +7,39 @@ from django.shortcuts import HttpResponse
 
 def login(request):
     if request.method == "GET":
-        return render(request, 'login.html')
+        return render(request, 'login1.html')
     elif request.method == "POST":
+        error_message = "用户名或密码错误"
         # 在数据库中执行 select * from user where username='x' and password='x'
-        return render(request, 'login.html')
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        obj1 = models.UserInfo.objects.filter(username=username,
+                                              password=password).first()
+        # obj2 = models.UserInfo.objects.filter(username="root", password="999").count()
+        if obj1:
+            return redirect('/monitor/index1')
+        else:
+            return render(request, 'login1.html',
+                          {"error_message": error_message})
     else:
-        return redirect("/index")
+        return redirect("/index1")
+
+
+def index(request):
+    return render(request, 'index1.html')
+
+
+def user_info(request):
+    user_list = models.UserInfo.objects.all()
+    print(user_list.query)
+    return render(request, 'user_info.html', {'user_list': user_list})
+
+
+def user_detail(request, nid):
+    obj = models.UserInfo.objects.filter(id=nid).first()
+    # 仅获取一条信息，但id不存在，会报错
+    # models.UserInfo.objects.get(id=nid)
+    return render(request, 'user_detail.html', {'obj': obj})
 
 
 from app02 import models
@@ -37,12 +64,12 @@ def orm(request):
     print(result)
 
     # 删
-    models.UserInfo.objects.filter(username='Tom').delete()
-    models.UserInfo.objects.filter(id=1).delete()
-    models.UserInfo.objects.all().delete()
+    # models.UserInfo.objects.filter(username='Tom').delete()
+    # models.UserInfo.objects.filter(id=1).delete()
+    # models.UserInfo.objects.all().delete()
 
     # 改
     models.UserInfo.objects.all().update(password=999)
-    models.UserInfo.objects.filter(id=7).update(password=666)
+    # models.UserInfo.objects.filter(id=7).update(password=666)
 
     return HttpResponse('orm')

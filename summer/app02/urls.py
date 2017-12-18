@@ -21,6 +21,9 @@ from django.conf.urls import url
 from app02 import views
 
 urlpatterns = [
-    url(r'^login', views.login),
+    url(r'^login1', views.login),
+    url(r'^index1', views.index),
+    url(r'^user_info', views.user_info),
+    url(r'^detail-(?P<nid>\d+)', views.user_detail),
     url(r'^orm', views.orm),
 ]
