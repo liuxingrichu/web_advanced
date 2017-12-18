@@ -22,6 +22,14 @@
         <a class="menu" href="/monitor/user_group/">用户组管理</a>
     </div>
     <div style="position:absolute;top:48px;left: 210px;bottom: 0;right: 0;overflow: auto">
+        <h3>添加用户</h3>
+        <form action="/monitor/user_info" method="post">
+            <p>
+                <input type="text" name="user" placeholder="用户名"/>
+                <input type="password" name="pwd" placeholder="密码"/>
+                <input type="submit" value="提交"/>
+            </p>
+        </form>
         <h3>用户列表</h3>
         <ul>
             {% for row in user_list %}

@@ -30,9 +30,15 @@ def index(request):
 
 
 def user_info(request):
-    user_list = models.UserInfo.objects.all()
-    print(user_list.query)
-    return render(request, 'user_info.html', {'user_list': user_list})
+    if request.method == "GET":
+        user_list = models.UserInfo.objects.all()
+        # print(user_list.query)
+        return render(request, 'user_info.html', {'user_list': user_list})
+    elif request.method == "POST":
+        u = request.POST.get("user")
+        p = request.POST.get("pwd")
+        models.UserInfo.objects.create(username=u, password=p)
+        return redirect('/monitor/user_info')
 
 
 def user_detail(request, nid):
