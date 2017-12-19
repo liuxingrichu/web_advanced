@@ -48,6 +48,11 @@ def user_detail(request, nid):
     return render(request, 'user_detail.html', {'obj': obj})
 
 
+def user_del(request, nid):
+    models.UserInfo.objects.filter(id=nid).delete()
+    return redirect('/monitor/user_info')
+
+
 from app02 import models
 
 
