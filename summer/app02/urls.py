@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^user_info', views.user_info),
     url(r'^detail-(?P<nid>\d+)', views.user_detail),
     url(r'^userdel-(?P<nid>\d+)', views.user_del),
+    url(r'^useredit-(?P<nid>\d+)', views.user_edit),
     url(r'^orm', views.orm),
 ]

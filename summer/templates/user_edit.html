@@ -22,25 +22,13 @@
         <a class="menu" href="/monitor/user_group/">用户组管理</a>
     </div>
     <div style="position:absolute;top:48px;left: 210px;bottom: 0;right: 0;overflow: auto">
-        <h3>添加用户</h3>
-        <form action="/monitor/user_info" method="post">
-            <p>
-                <input type="text" name="user" placeholder="用户名"/>
-                <input type="password" name="pwd" placeholder="密码"/>
-                <input type="submit" value="提交"/>
-            </p>
+        <h3>用户编辑</h3>
+        <form action="/monitor/useredit-{{ obj.id }}/" method="post">
+            <input style="display: none" type="text" name="id" value="{{ obj.id }}"/>
+            <input type="text" name="username" value="{{ obj.username }}"/>
+            <input type="password" name="password" value="{{ obj.password }}"/>
+            <input type="submit" value="提交"/>
         </form>
-        <h3>用户列表</h3>
-        <ul>
-            {% for row in user_list %}
-                <li>
-                    <a href="/monitor/detail-{{ row.id }}">{{ row.username }}</a>
-                    <a href="/monitor/userdel-{{ row.id }}">| 删除</a>
-                    <a href="/monitor/useredit-{{ row.id }}">| 编辑</a>
-                </li>
-            {% endfor %}
-        </ul>
-
     </div>
 </body>
 </html>

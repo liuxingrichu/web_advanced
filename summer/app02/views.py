@@ -53,6 +53,17 @@ def user_del(request, nid):
     return redirect('/monitor/user_info')
 
 
+def user_edit(request, nid):
+    if request.method == "GET":
+        obj = models.UserInfo.objects.filter(id=nid).first()
+        return render(request, 'user_edit.html', {"obj": obj})
+    elif request.method == "POST":
+        u = request.POST.get("username")
+        p = request.POST.get("password")
+        models.UserInfo.objects.filter(id=nid).update(username=u, password=p)
+        return redirect('/monitor/user_info')
+
+
 from app02 import models
 
 
