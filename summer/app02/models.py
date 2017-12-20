@@ -16,3 +16,6 @@ class UserInfo(models.Model):
 class UserGroup(models.Model):
     uid = models.AutoField(primary_key=True)
     caption = models.CharField(max_length=32)
+    ctime = models.DateTimeField(auto_now_add=True, null=True)
+    uptime = models.DateTimeField(auto_now=True, null=True)
+

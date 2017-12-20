@@ -6,6 +6,7 @@ from django.shortcuts import HttpResponse
 # Create your views here.
 
 def login(request):
+    models.UserGroup.objects.create(caption="monitor")
     if request.method == "GET":
         return render(request, 'login1.html')
     elif request.method == "POST":
