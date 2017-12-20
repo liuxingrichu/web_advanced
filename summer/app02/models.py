@@ -7,5 +7,8 @@ from django.db import models
 class UserInfo(models.Model):
     # 默认创建ID列，自增， 主键
     # 用户名列，字符串类型，指定长度
-    username = models.CharField(max_length=32)
+    # 字符串、数字、时间、二进制
+    username = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
+    email = models.EmailField(max_length=64, null=True)
+    models.GenericIPAddressField()
