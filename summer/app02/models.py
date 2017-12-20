@@ -11,4 +11,8 @@ class UserInfo(models.Model):
     username = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
     email = models.EmailField(max_length=64, null=True)
-    models.GenericIPAddressField()
+
+
+class UserGroup(models.Model):
+    uid = models.AutoField(primary_key=True)
+    caption = models.CharField(max_length=32)
