@@ -7,6 +7,12 @@ from django.shortcuts import HttpResponse
 
 def login(request):
     models.UserGroup.objects.create(caption="monitor")
+    # 时间更新不起作用
+    models.UserGroup.objects.filter(uid=2).update(caption="new")
+    # 时间更新：OK
+    obj = models.UserGroup.objects.filter(uid=1).first()
+    obj.caption = "CEO"
+    obj.save()
     if request.method == "GET":
         return render(request, 'login1.html')
     elif request.method == "POST":
