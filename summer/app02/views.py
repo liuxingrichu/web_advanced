@@ -40,7 +40,9 @@ def user_info(request):
     if request.method == "GET":
         user_list = models.UserInfo.objects.all()
         # print(user_list.query)
-        return render(request, 'user_info.html', {'user_list': user_list})
+        group_list = models.UserGroup.objects.all()
+        return render(request, 'user_info.html',
+                      {'user_list': user_list, 'group_list': group_list})
     elif request.method == "POST":
         u = request.POST.get("user")
         p = request.POST.get("pwd")
@@ -76,21 +78,21 @@ from app02 import models
 
 def orm(request):
     # 增
-    models.UserInfo.objects.create(username='root', password='123')
-
-    dict_user = {'username': 'Lucy', 'password': '123'}
-    models.UserInfo.objects.create(**dict_user)
-
-    obj = models.UserInfo(username='Tom', password='123')
-    obj.save()
+    # models.UserInfo.objects.create(username='root', password='123')
+    #
+    # dict_user = {'username': 'Lucy', 'password': '123'}
+    # models.UserInfo.objects.create(**dict_user)
+    #
+    # obj = models.UserInfo(username='Tom', password='123')
+    # obj.save()
 
     # 查
-    result = models.UserInfo.objects.all()
-    result = models.UserInfo.objects.filter(username='Tom')
-    # result的类型是QuerySet，是Django提供的，类似列表
-    for item in result:
-        print(item.id, item.username, item.password)
-    print(result)
+    # result = models.UserInfo.objects.all()
+    # result = models.UserInfo.objects.filter(username='Tom')
+    # # result的类型是QuerySet，是Django提供的，类似列表
+    # for item in result:
+    #     print(item.id, item.username, item.password)
+    # print(result)
 
     # 删
     # models.UserInfo.objects.filter(username='Tom').delete()
@@ -98,7 +100,21 @@ def orm(request):
     # models.UserInfo.objects.all().delete()
 
     # 改
-    models.UserInfo.objects.all().update(password=999)
+    # models.UserInfo.objects.all().update(password=999)
     # models.UserInfo.objects.filter(id=7).update(password=666)
+
+    models.UserInfo.objects.create(
+        username='Spring',
+        password='123',
+        email='springcom',
+        user_group_id=1
+    )
+
+    models.UserInfo.objects.create(
+        username='Spring1',
+        password='123',
+        email='spring@163.com',
+        user_group=models.UserGroup.objects.filter(uid=1).first()
+    )
 
     return HttpResponse('orm')
