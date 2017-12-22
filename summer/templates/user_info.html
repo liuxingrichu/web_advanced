@@ -35,6 +35,7 @@
             {% for row in user_list %}
                 <li>
                     <a href="/monitor/detail-{{ row.id }}">{{ row.username }}</a>
+                    <span>{{ row.user_group.caption }}</span>
                     <a href="/monitor/userdel-{{ row.id }}">| 删除</a>
                     <a href="/monitor/useredit-{{ row.id }}">| 编辑</a>
                 </li>
