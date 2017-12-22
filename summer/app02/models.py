@@ -11,6 +11,12 @@ class UserInfo(models.Model):
     username = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
     email = models.EmailField(max_length=64, null=True)
+    user_type_choices = (
+        (1, "超级用户"),
+        (2, "管理员"),
+        (3, "普通用户"),
+    )
+    user_type_id = models.IntegerField(choices=user_type_choices, default=3)
 
 
 class UserGroup(models.Model):
@@ -18,4 +24,3 @@ class UserGroup(models.Model):
     caption = models.CharField(max_length=32)
     ctime = models.DateTimeField(auto_now_add=True, null=True)
     uptime = models.DateTimeField(auto_now=True, null=True)
-
