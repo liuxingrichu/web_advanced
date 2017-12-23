@@ -46,15 +46,20 @@ def user_info(request):
     elif request.method == "POST":
         u = request.POST.get("user")
         p = request.POST.get("pwd")
-        models.UserInfo.objects.create(username=u, password=p)
+        e = request.POST.get("email")
+        group = request.POST.get("user_group_id")
+        models.UserInfo.objects.create(username=u, password=p, email=e,
+                                       user_group_id=group)
         return redirect('/monitor/user_info')
 
 
 def user_detail(request, nid):
     obj = models.UserInfo.objects.filter(id=nid).first()
+    group_obj = models.UserGroup.objects.filter(uid=obj.user_group_id).first()
     # 仅获取一条信息，但id不存在，会报错
     # models.UserInfo.objects.get(id=nid)
-    return render(request, 'user_detail.html', {'obj': obj})
+    return render(request, 'user_detail.html',
+                  {'obj': obj, 'group_obj': group_obj})
 
 
 def user_del(request, nid):
@@ -65,11 +70,17 @@ def user_del(request, nid):
 def user_edit(request, nid):
     if request.method == "GET":
         obj = models.UserInfo.objects.filter(id=nid).first()
-        return render(request, 'user_edit.html', {"obj": obj})
+        group_list = models.UserGroup.objects.all()
+        return render(request, 'user_edit.html',
+                      {"obj": obj, "group_list": group_list})
     elif request.method == "POST":
         u = request.POST.get("username")
         p = request.POST.get("password")
-        models.UserInfo.objects.filter(id=nid).update(username=u, password=p)
+        e = request.POST.get("email")
+        uid = request.POST.get("group_id")
+        models.UserInfo.objects.filter(id=nid).update(username=u, password=p,
+                                                      email=e,
+                                                      user_group_id=uid)
         return redirect('/monitor/user_info')
 
 

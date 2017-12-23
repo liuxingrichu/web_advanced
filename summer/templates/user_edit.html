@@ -27,6 +27,12 @@
             <input style="display: none" type="text" name="id" value="{{ obj.id }}"/>
             <input type="text" name="username" value="{{ obj.username }}"/>
             <input type="password" name="password" value="{{ obj.password }}"/>
+            <input type="email" name="email" value="{{ obj.email }}"/>
+            <select name="group_id">
+                {% for row in group_list %}
+                    <option value="{{ row.uid }}">{{ row.caption }}</option>
+                {% endfor %}
+            </select>
             <input type="submit" value="提交"/>
         </form>
     </div>
