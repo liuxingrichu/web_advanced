@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^set_business/', views.set_business),
     url(r'^get_business$', views.get_business),
+    url(r'^set_host$', views.set_host),
+    url(r'^get_host$', views.get_host),
 ]
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主机信息</title>
+</head>
+<body>
+    <h3>主机信息</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>主机名</th>
+                <th>IP</th>
+                <th>端口</th>
+                <th>业务线</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in v1 %}
+                <tr hid="{{ row.uid }}" bid="{{ row.b_id }}">
+                    <td>{{ row.hostname }}</td>
+                    <td>{{ row.ip }}</td>
+                    <td>{{ row.port }}</td>
+                    <td>{{ row.b.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

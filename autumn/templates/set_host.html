@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加主机</title>
+</head>
+<body>
+    <h3>添加主机</h3>
+    <form action="/set_host" method="post">
+        <span>主机名</span>
+        <input type="text" name="hostname" placeholder="主机名"/>
+        <br/>
+        <span>IP</span>
+        <input type="text" name="ip" placeholder="IP"/>
+        <br/>
+        <p>端口
+            <input type="text" name="port" placeholder="端口"/>
+        </p>
+        <p>业务线
+            <select name="business_name">
+                {% for row in v1 %}
+                    <option value="{{ row.id }}">{{ row.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <input type="submit" value="提交"/>
+    </form>
+</body>
+</html>
