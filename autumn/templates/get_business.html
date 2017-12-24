@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h3>部门信息（对象）</h3>
+    {% for row in v1 %}
+        <li>{{ row.id }} {{ row.name }} {{ row.name_en }}</li>
+    {% endfor %}
+    <h3>部门信息（字典）</h3>
+    {% for row in v2 %}
+        <li>{{ row.id }} {{ row.name }}</li>
+    {% endfor %}
+    <h3>部门信息（元组）</h3>
+    {% for row in v3 %}
+        <li>{{ row.0 }} {{ row.1 }}</li>
+    {% endfor %}
+</body>
+</html>

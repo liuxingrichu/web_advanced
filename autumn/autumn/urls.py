@@ -20,6 +20,7 @@ from app01 import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^business/', views.add_business),
+    url(r'^set_business/', views.set_business),
+    url(r'^get_business$', views.get_business),
 ]
 
