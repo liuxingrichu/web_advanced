@@ -5,10 +5,11 @@
     <title>主机信息</title>
 </head>
 <body>
-    <h3>主机信息</h3>
+    <h3>主机信息（对象）</h3>
     <table border="1">
         <thead>
             <tr>
+                <th>序号</th>
                 <th>主机名</th>
                 <th>IP</th>
                 <th>端口</th>
@@ -18,10 +19,49 @@
         <tbody>
             {% for row in v1 %}
                 <tr hid="{{ row.uid }}" bid="{{ row.b_id }}">
+                    <td>{{ forloop.counter }}</td>
                     <td>{{ row.hostname }}</td>
                     <td>{{ row.ip }}</td>
                     <td>{{ row.port }}</td>
                     <td>{{ row.b.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>主机信息（字典）</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>主机名</th>
+                <th>业务线</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in v2 %}
+                <tr hid="{{ row.uid }}" bid="{{ row.b_id }}">
+                    <td>{{ forloop.counter0 }}</td>
+                    <td>{{ row.hostname }}</td>
+                    <td>{{ row.b__name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>主机信息（元组）</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>主机名</th>
+                <th>业务线</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in v3 %}
+                <tr hid="{{ row.0 }}" bid="{{ row.2 }}">
+                    <td>{{ forloop.revcounter }}</td>
+                    <td>{{ row.1 }}</td>
+                    <td>{{ row.3 }}</td>
                 </tr>
             {% endfor %}
         </tbody>

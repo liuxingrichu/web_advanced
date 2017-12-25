@@ -40,4 +40,12 @@ def set_host(request):
 
 def get_host(request):
     v1 = models.Host.objects.all()
-    return render(request, 'get_host.html', {'v1': v1})
+    # print(v1[0].nid, v1[0].port, v1[0].b_id, v1[0].b.name)
+
+    v2 = models.Host.objects.all().values('nid', 'hostname', 'b_id', 'b__name')
+    # print(v2[0]['hostname'], v2[0]['b__name'])
+
+    v3 = models.Host.objects.all().values_list('nid', 'hostname', 'b_id', 'b__name')
+    # for row in v3:
+    #     print(row[0], row[1], row[2], row[3])
+    return render(request, 'get_host.html', {'v1': v1, 'v2': v2, 'v3': v3})
