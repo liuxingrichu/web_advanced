@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
+import json
 
 # Create your views here.
 
@@ -65,15 +66,18 @@ def get_host(request):
 
 
 def test_ajax(request):
-    h = request.POST.get('hostname')
-    i = request.POST.get('ip')
-    p = request.POST.get('port')
-    b = request.POST.get('b_id')
-    if h and len(h) > 5:
-        models.Host.objects.create(hostname=h,
-                                   ip=i,
-                                   port=p,
-                                   b_id=b)
-        return HttpResponse('OK')
-    else:
-        return HttpResponse("太短了")
+    ret = {'status': True, 'error': None, 'data': None}
+    try:
+        h = request.POST.get('hostname')
+        i = request.POST.get('ip')
+        p = request.POST.get('port')
+        b = request.POST.get('b_id')
+        if h and len(h) > 5:
+            models.Host.objects.create(hostname=h, ip=i, port=p, b_id=b)
+        else:
+            ret['status'] = False
+            ret['error'] = "太短了"
+    except Exception as e:
+        ret['status'] = False
+        ret['error'] = '请求错误'
+    return HttpResponse(json.dumps(ret))
