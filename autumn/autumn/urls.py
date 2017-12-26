@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^get_business$', views.get_business),
     url(r'^set_host$', views.set_host),
     url(r'^get_host$', views.get_host),
+    url(r'^test_ajax$', views.test_ajax),
 ]
 
