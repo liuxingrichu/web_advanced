@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>主机信息</title>
+     <style>
+        .hide{
+            display: none;
+        }
+        .shade{
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: black;
+            opacity: 0.6;
+            z-index: 100;
+        }
+        .add-modal,.edit-modal{
+            position: fixed;
+            height: 300px;
+            width: 400px;
+            top:100px;
+            left: 50%;
+            z-index: 101;
+            border: 1px solid red;
+            background: white;
+            margin-left: -200px;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <input id="add_host" type="button" value="添加" />
+    </div>
     <h3>主机信息（对象）</h3>
     <table border="1">
         <thead>
@@ -66,5 +95,52 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="shade hide"></div>
+    <div class="add-modal hide">
+        <h3>添加主机信息</h3>
+        <form id="add_form" method="POST" action="/get_host">
+            <div class="group">
+                <span>主机名</span>
+                <input id="host" type="text" placeholder="主机名" name="hostname" />
+            </div>
+
+            <div class="group">
+                <span>&nbsp;&nbsp;IP</span>
+                <input id="ip" type="text" placeholder="IP" name="ip" />
+            </div>
+
+            <div class="group">
+                <span>端&nbsp;口</span>
+                <input id="port" type="text" placeholder="端口" name="port" />
+            </div>
+
+            <div class="group">
+                <span>业务线</span>
+                <select id="sel" name="b_id">
+                    {% for op in b_list %}
+                        <option value="{{ op.id }}">{{ op.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input type="submit" value="提交" />
+            <input id="cancel" type="button" value="取消" />
+        </form>
+    </div>
+
+
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+         $(function() {
+
+             $('#add_host').click(function () {
+                 $('.shade,.add-modal').removeClass('hide');
+             });
+
+             $('#cancel').click(function () {
+                 $('.shade,.add-modal').addClass('hide');
+             });
+         });
+    </script>
 </body>
 </html>

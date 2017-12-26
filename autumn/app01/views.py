@@ -39,13 +39,26 @@ def set_host(request):
 
 
 def get_host(request):
-    v1 = models.Host.objects.all()
-    # print(v1[0].nid, v1[0].port, v1[0].b_id, v1[0].b.name)
+    if request.method == "GET":
+        v1 = models.Host.objects.all()
+        # print(v1[0].nid, v1[0].port, v1[0].b_id, v1[0].b.name)
 
-    v2 = models.Host.objects.all().values('nid', 'hostname', 'b_id', 'b__name')
-    # print(v2[0]['hostname'], v2[0]['b__name'])
+        v2 = models.Host.objects.all().values('nid', 'hostname', 'b_id',
+                                              'b__name')
+        # print(v2[0]['hostname'], v2[0]['b__name'])
 
-    v3 = models.Host.objects.all().values_list('nid', 'hostname', 'b_id', 'b__name')
-    # for row in v3:
-    #     print(row[0], row[1], row[2], row[3])
-    return render(request, 'get_host.html', {'v1': v1, 'v2': v2, 'v3': v3})
+        v3 = models.Host.objects.all().values_list('nid', 'hostname', 'b_id',
+                                                   'b__name')
+        # for row in v3:
+        #     print(row[0], row[1], row[2], row[3])
+
+        b_list = models.Business.objects.all()
+        return render(request, 'get_host.html',
+                      {'v1': v1, 'v2': v2, 'v3': v3, 'b_list': b_list})
+    elif request.method == "POST":
+        h = request.POST.get('hostname')
+        i = request.POST.get('ip')
+        p = request.POST.get('port')
+        b = request.POST.get('b_id')
+        models.Host.objects.create(hostname=h, ip=i, port=p, b_id=b)
+        return redirect('/get_host')
