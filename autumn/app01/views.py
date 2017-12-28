@@ -81,3 +81,15 @@ def test_ajax(request):
         ret['status'] = False
         ret['error'] = '请求错误'
     return HttpResponse(json.dumps(ret))
+
+
+def set_app(request):
+    if request.method == "GET":
+        host_list = models.Host.objects.all()
+        return render(request, 'set_app.html', {'host_list': host_list})
+    elif request.method == "POST":
+        app_name = request.POST.get('app_name')
+        host_list = request.POST.getlist('hostname')
+        obj = models.Application.objects.create(name=app_name)
+        obj.r.add(*host_list)
+        return redirect('/set_app')

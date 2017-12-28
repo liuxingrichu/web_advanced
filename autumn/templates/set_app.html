@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h3>添加应用及主机对应关系（一对多）</h3>
+    <form action="/set_app" method="post">
+        <span>应用名</span>
+        <input type="text" name="app_name" placeholder="应用名"/>
+        <br/>
+        <span>主机名</span>
+        <select id="hostname" name="hostname" multiple>
+            {% for host in host_list %}
+                <option value="{{ host.nid }}">{{ host.hostname }}</option>
+            {% endfor %}
+        </select>
+        <br/>
+        <input type="submit" value="提交"/>
+    </form>
+</body>
+</html>
