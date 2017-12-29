@@ -26,5 +26,7 @@ urlpatterns = [
     url(r'^get_host$', views.get_host),
     url(r'^test_ajax$', views.test_ajax),
     url(r'^set_app$', views.set_app),
+    url(r'^app$', views.app),
+    url(r'^ajax_add_app$', views.ajax_add_app),
 ]
 

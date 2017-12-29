@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .host-tag{
+            display: inline-block;
+            padding: 3px;
+            border: 1px solid red;
+            background-color: palevioletred;
+        }
+        .hide{
+            display: none;
+        }
+        .shade{
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: black;
+            opacity: 0.6;
+            z-index: 100;
+        }
+        .add-modal,.edit-modal{
+            position: fixed;
+            height: 300px;
+            width: 400px;
+            top:100px;
+            left: 50%;
+            z-index: 101;
+            border: 1px solid red;
+            background: white;
+            margin-left: -200px;
+        }
+    </style>
+</head>
+<body>
+    <h3>应用和主机信息</h3>
+     <div>
+        <input id="add_app" type="button" value="添加" />
+    </div>
+    <table border="1">
+        <thead>
+        <tr>
+            <td>应用名</td>
+            <td>主机名</td>
+        </tr>
+        </thead>
+        <tbody>
+            {% for app in app_list %}
+                <tr id="{{ app.id }}">
+                    <td>{{ app.name }}</td>
+                    {% for host in app.r.all %}
+                        <td>{{ host.hostname }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="shade hide"></div>
+    <div class="add-modal hide">
+        <h3>添加应用与主机关系</h3>
+        <form id="app_form" method="post" action="/app">
+            <div>
+                <span>应用名</span>
+                <input type="text" name="app_name" placeholder="应用名"/>
+            </div>
+            <span>主机名</span>
+            <select name="app_host" multiple>
+                {% for host in host_list %}
+                    <option value="{{ host.nid }}">{{ host.hostname }}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <input type="submit" value="提交"/>
+            <input id="cancel" type="button" value="取消"/>
+            <input id="add_submit_ajax" type="button" value="Ajax提交" />
+        </form>
+    </div>
+
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+        $(function(){
+            $('#add_app').click(function(){
+                $('.shade, .add-modal').removeClass('hide')
+            });
+
+            $('#cancel').click(function(){
+                $('.shade, .add-modal').addClass('hide')
+            });
+
+            $('#add_submit_ajax').click(function(){
+                $.ajax({
+                    url:'/ajax_add_app',
+                    data:$('#app_form').serialize(),
+{#                    data:{'user':111, 'user_list': [1, 2, 3]},#}
+                    type:'POST',
+                    dataType:'JSON',
+                    traditional: true,
+                    success: function(obj){
+                        location.reload();
+                    },
+                    error: function(obj){
+                        console.log(obj)
+                    }
+                })
+            });
+        })
+    </script>
+</body>
+</html>
