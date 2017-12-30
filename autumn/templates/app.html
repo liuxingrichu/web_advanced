@@ -23,7 +23,7 @@
             opacity: 0.6;
             z-index: 100;
         }
-        .add-modal,.edit-modal{
+        .add-modal,.edit-modal, .del-modal{
             position: fixed;
             height: 300px;
             width: 400px;
@@ -60,7 +60,7 @@
                     </td>
                     <td>
                         <input class="edit_app" type="button" value="编辑"/>
-                        <input id="del_app" type="button" value="删除"/>
+                        <input class="del_app" type="button" value="删除"/>
                     </td>
                 </tr>
             {% endfor %}
@@ -108,7 +108,25 @@
         </form>
     </div>
 
-
+    <div class="del-modal hide">
+        <h3>删除应用与主机关系</h3>
+        <form id="del_form" method="post" action="/app">
+            <input type="text" name="app_id" style="display: none"/>
+            <div>
+                <span>应用名</span>
+                <input type="text" name="app_name" placeholder="应用名"/>
+            </div>
+            <span>主机名</span>
+            <select name="app_host" multiple>
+                {% for host in host_list %}
+                    <option value="{{ host.nid }}">{{ host.hostname }}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <input id="del_submit_ajax" type="button" value="确认" />
+            <input id="del_cancel" type="button" value="取消"/>
+        </form>
+    </div>
 
     <script src="/static/jquery-1.12.4.js"></script>
     <script>
@@ -156,7 +174,7 @@
                 $('#edit_form').find('div').find('input').val(app_name);
             });
 
-             $('#edit_cancel').click(function(){
+            $('#edit_cancel').click(function(){
                 $('.shade, .edit-modal').addClass('hide')
             });
 
@@ -165,6 +183,44 @@
                     url:'/ajax_edit_app',
                     type:'POST',
                     data: $('#edit_form').serialize(),
+                    dataTpe:'JSON',
+                    traditional:true,
+                    success: function(obj){
+                        location.reload();
+                    },
+                    error: function(obj){
+
+                    }
+
+                });
+
+            });
+
+            $('.del_app').click(function(){
+                $('.shade, .del-modal').removeClass('hide');
+
+                var hid_list = [];
+                $(this).parent().prev().children().each(function(){
+                    var hid = $(this).attr('hid');
+                    hid_list.push(hid)
+                });
+                var app_name = $(this).parent().prev().prev().text();
+                var app_id = $(this).parent().parent().attr('id');
+
+                $('#del_form').find('select').val(hid_list);
+                $('#del_form').find('input').first().val(app_id);
+                $('#del_form').find('div').find('input').val(app_name);
+            });
+
+            $('#del_cancel').click(function(){
+                $('.shade, .del-modal').addClass('hide')
+            });
+
+            $('#del_submit_ajax').click(function(){
+                $.ajax({
+                    url:'/ajax_del_app',
+                    type:'POST',
+                    data: $('#del_form').serialize(),
                     dataTpe:'JSON',
                     traditional:true,
                     success: function(obj){

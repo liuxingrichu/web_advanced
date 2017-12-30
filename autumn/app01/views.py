@@ -128,3 +128,11 @@ def ajax_edit_app(request):
     obj.save()
     obj.r.set(host_list)
     return HttpResponse(json.dumps(ret))
+
+def ajax_del_app(request):
+    ret = {'status':True, 'error':None, 'data':None}
+    app_id = request.POST.get('app_id')
+    obj = models.Application.objects.filter(id=app_id).first()
+    obj.r.clear()
+    obj.delete()
+    return HttpResponse(json.dumps(ret))
