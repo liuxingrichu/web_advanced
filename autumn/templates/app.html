@@ -46,15 +46,22 @@
         <tr>
             <td>应用名</td>
             <td>主机名</td>
+            <td>操作</td>
         </tr>
         </thead>
         <tbody>
             {% for app in app_list %}
                 <tr id="{{ app.id }}">
                     <td>{{ app.name }}</td>
-                    {% for host in app.r.all %}
-                        <td>{{ host.hostname }}</td>
-                    {% endfor %}
+                    <td>
+                        {% for host in app.r.all %}
+                            <span hid="{{ host.nid }}">{{ host.hostname }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <input class="edit_app" type="button" value="编辑"/>
+                        <input id="del_app" type="button" value="删除"/>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -76,10 +83,32 @@
             </select>
             <br/>
             <input type="submit" value="提交"/>
-            <input id="cancel" type="button" value="取消"/>
+            <input id="add_cancel" type="button" value="取消"/>
             <input id="add_submit_ajax" type="button" value="Ajax提交" />
         </form>
     </div>
+
+    <div class="edit-modal hide">
+        <h3>编辑应用与主机关系</h3>
+        <form id="edit_form" method="post" action="/app">
+            <input type="text" name="app_id" style="display: none"/>
+            <div>
+                <span>应用名</span>
+                <input type="text" name="app_name" placeholder="应用名"/>
+            </div>
+            <span>主机名</span>
+            <select name="app_host" multiple>
+                {% for host in host_list %}
+                    <option value="{{ host.nid }}">{{ host.hostname }}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <input id="edit_submit_ajax" type="button" value="确认" />
+            <input id="edit_cancel" type="button" value="取消"/>
+        </form>
+    </div>
+
+
 
     <script src="/static/jquery-1.12.4.js"></script>
     <script>
@@ -88,7 +117,7 @@
                 $('.shade, .add-modal').removeClass('hide')
             });
 
-            $('#cancel').click(function(){
+            $('#add_cancel').click(function(){
                 $('.shade, .add-modal').addClass('hide')
             });
 
@@ -108,6 +137,47 @@
                     }
                 })
             });
+
+            $('.edit_app').click(function(){
+                $('.shade, .edit-modal').removeClass('hide');
+
+                var hid_list = [];
+                $(this).parent().prev().children().each(function(){
+                    var hid = $(this).attr('hid');
+                    hid_list.push(hid)
+                });
+                var app_name = $(this).parent().prev().prev().text();
+                var app_id = $(this).parent().parent().attr('id');
+                console.log(app_name);
+                console.log(app_id);
+
+                $('#edit_form').find('select').val(hid_list);
+                $('#edit_form').find('input').first().val(app_id);
+                $('#edit_form').find('div').find('input').val(app_name);
+            });
+
+             $('#edit_cancel').click(function(){
+                $('.shade, .edit-modal').addClass('hide')
+            });
+
+            $('#edit_submit_ajax').click(function(){
+                $.ajax({
+                    url:'/ajax_edit_app',
+                    type:'POST',
+                    data: $('#edit_form').serialize(),
+                    dataTpe:'JSON',
+                    traditional:true,
+                    success: function(obj){
+                        location.reload();
+                    },
+                    error: function(obj){
+
+                    }
+
+                });
+
+            });
+
         })
     </script>
 </body>

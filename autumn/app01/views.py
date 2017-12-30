@@ -116,3 +116,15 @@ def ajax_add_app(request):
     obj = models.Application.objects.create(name=app_name)
     obj.r.add(*host_list)
     return HttpResponse(json.dumps(ret))
+
+
+def ajax_edit_app(request):
+    ret = {'status':True, 'error':None, 'data':None}
+    app_id = request.POST.get('app_id')
+    app_name = request.POST.get('app_name')
+    host_list = request.POST.getlist('app_host')
+    obj = models.Application.objects.filter(id=app_id).first()
+    obj.name = app_name
+    obj.save()
+    obj.r.set(host_list)
+    return HttpResponse(json.dumps(ret))
