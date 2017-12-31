@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^b/', include('app01.urls', namespace='m2')),
     url(r'^submaster$', views.submaster),
     url(r'^submaster1$', views.submaster1),
+    url(r'^simple$', views.simple),
 ]

@@ -34,3 +34,8 @@ def submaster(request):
 
 def submaster1(request):
     return render(request, 'submaster1.html')
+
+
+def simple(request):
+    name = "Tom"
+    return render(request, 'simple.html', {'name': name})
