@@ -6,6 +6,11 @@ from django.urls import reverse
 # Create your views here.
 
 def index(request, name):
+    print(type(request))
+    from django.core.handlers.wsgi import WSGIRequest
+    for k, v in request.environ.items():
+        print("%s: %s" % (k, v))
+    print(request.environ.get('HTTP_USER_AGENT'))
     print(name)
     return HttpResponse('OK')
 
