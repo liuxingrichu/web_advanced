@@ -10,3 +10,8 @@ register = template.Library()
 @register.simple_tag
 def my_define_func(a, b):
     return a + b
+
+
+@register.filter
+def my_filter(a, b):
+    return a + b

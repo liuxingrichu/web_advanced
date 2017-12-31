@@ -11,5 +11,9 @@
     {{ name|lower }}
     <br/>
     {% my_define_func 5 2 %}
+    <br/>
+    {{ "PM"|my_filter:"LiLi" }}
+    {% if "PM"|my_filter:"LiLi" %}
+    {% endif %}
 </body>
 </html>
