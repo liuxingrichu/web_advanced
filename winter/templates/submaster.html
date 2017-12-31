@@ -1,0 +1,22 @@
+{% extends 'master.html' %}
+
+{% block title %}母版使用{% endblock %}
+
+{% block context %}
+    <span>用户名</span>
+    <input type="text" name="user" placeholder="用户名" />
+{% endblock %}
+
+{% block js %}
+    <script>
+        alert('123');
+    </script>
+{% endblock %}
+
+{% block css %}
+    <style>
+        body{
+            background-color: blue;
+        }
+    </style>
+{% endblock %}

@@ -26,3 +26,11 @@ def home(request):
         return render(request, 'home2.html')
     else:
         return HttpResponse('home')
+
+
+def submaster(request):
+    return render(request, 'submaster.html')
+
+
+def submaster1(request):
+    return render(request, 'submaster1.html')

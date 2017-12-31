@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^index/', views.index, {'name': 'Lucy'}),
     url(r'^a/', include('app01.urls', namespace='m1')),
     url(r'^b/', include('app01.urls', namespace='m2')),
+    url(r'^submaster$', views.submaster),
+    url(r'^submaster1$', views.submaster1),
 ]

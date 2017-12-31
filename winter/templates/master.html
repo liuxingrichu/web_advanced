@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titile %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/commons.css">
+    <style>
+        .pg-header{
+            height: 50px;
+            background-color: gold;
+            color: white;
+        }
+    </style>
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <div class="pg-header">母版</div>
+    {% block context %}{% endblock %}
+    <script src="/static/jquery.js"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>
