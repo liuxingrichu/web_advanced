@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^submaster$', views.submaster),
     url(r'^submaster1$', views.submaster1),
     url(r'^simple$', views.simple),
+    # url(r'^page-(\d+).html', views.page),
+    url(r'^page', views.page),
 ]
