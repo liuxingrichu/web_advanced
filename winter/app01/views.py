@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.urls import reverse
-from django.utils.safestring import mark_safe
 
 
 # Create your views here.
@@ -42,30 +41,18 @@ def simple(request):
     return render(request, 'simple.html', {'name': name})
 
 
+from  utils import pagination
+
 LIST = []
-for i in range(1, 100):
+for i in range(500):
     LIST.append(i)
 
 
 def page(request):
-    if request.method == "GET":
-        current_page = request.GET.get('p', 1)
-        current_page = int(current_page)
-        all_count = len(LIST)
-        start = (current_page - 1) * 10
-        end = current_page * 10
-        data = LIST[start:end]
-        count, remainder = divmod(all_count, 10)
-        if remainder:
-            count += 1
-        page_list = []
-        for i in range(1, count+1):
-            if i == current_page:
-                temp = "<a class='page active' href='/page/?p=%s'>%s</a>" % (i, i)
-            else:
-                temp = "<a class='page' href='/page/?p=%s'>%s</a>" % (i, i)
-            page_list.append(temp)
-        page_str = "".join(page_list)
-        page_str = mark_safe(page_str)
-        return render(request, 'page.html',
-                      {"data": data, 'page_str': page_str})
+    current_page = request.GET.get('p', 1)
+    current_page = int(current_page)
+    page_obj = pagination.Page(current_page, len(LIST))
+    data = LIST[page_obj.start:page_obj.end]
+    page_str = page_obj.page_str("/page/")
+    return render(request, 'page.html',
+                  {"data": data, 'page_str': page_str})
