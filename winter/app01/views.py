@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
 from django.urls import reverse
 
@@ -56,3 +57,33 @@ def page(request):
     page_str = page_obj.page_str("/page/")
     return render(request, 'page.html',
                   {"data": data, 'page_str': page_str})
+
+
+user_info = {
+    'spring': {'pwd': "spring"},
+    'summer': {'pwd': 'summer'},
+}
+
+
+def login(request):
+    if request.method == "GET":
+        return render(request, 'login.html')
+    elif request.method == "POST":
+        u = request.POST.get('user')
+        p = request.POST.get('pwd')
+        info = user_info.get(u)
+        if not info:
+            return render(request, 'login.html')
+        if info['pwd'] == p:
+            res = redirect('/welcome')
+            res.set_cookie('username', u)
+            return res
+        else:
+            return render(request, 'login.html')
+
+
+def welcome(request):
+    v = request.COOKIES.get('username')
+    if not v:
+        return render(request, 'login.html')
+    return render(request, 'welcome.html', {'current_username': v})

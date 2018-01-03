@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^simple$', views.simple),
     # url(r'^page-(\d+).html', views.page),
     url(r'^page', views.page),
+    url(r'^login$', views.login),
+    url(r'^welcome$', views.welcome),
 ]
