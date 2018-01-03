@@ -77,6 +77,11 @@ def login(request):
         if info['pwd'] == p:
             res = redirect('/welcome')
             res.set_cookie('username', u)
+            # res.set_cookie('username', u, max_age=10)
+            # from datetime import datetime, timedelta
+            # expire_time = datetime.utcnow() + timedelta(seconds=5)
+            # res.set_cookie('username', u, expires=expire_time)
+            res.set_cookie('key', 'value', httponly=True)
             return res
         else:
             return render(request, 'login.html')
