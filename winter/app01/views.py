@@ -52,7 +52,10 @@ for i in range(500):
 def page(request):
     current_page = request.GET.get('p', 1)
     current_page = int(current_page)
-    page_obj = pagination.Page(current_page, len(LIST))
+    val = request.COOKIES.get('per_page_count')
+    print('val: %s' % val)
+    val = int(val)
+    page_obj = pagination.Page(current_page, len(LIST), val)
     data = LIST[page_obj.start:page_obj.end]
     page_str = page_obj.page_str("/page/")
     return render(request, 'page.html',
