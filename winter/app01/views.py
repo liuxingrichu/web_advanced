@@ -85,6 +85,7 @@ def login(request):
             # expire_time = datetime.utcnow() + timedelta(seconds=5)
             # res.set_cookie('username', u, expires=expire_time)
             res.set_cookie('key', 'value', httponly=True)
+            res.set_signed_cookie('key1', 'value1', salt='haha')
             return res
         else:
             return render(request, 'login.html')
