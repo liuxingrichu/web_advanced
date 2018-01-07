@@ -14,14 +14,21 @@ def login(request):
         if user == 'root' and pwd == '123':
             request.session['username'] = user
             request.session['is_login'] = True
+            if request.POST.get('timeout', None) == '1':
+                request.session.set_expiry(10)
             return redirect('/index/')
         else:
             return render(request, 'login.html')
 
 
 def index(request):
-    if request.session['is_login']:
+    if request.session.get('is_login', None):
         username = request.session['username']
-        return HttpResponse(username)
+        return render(request, 'index.html', {'username': username})
     else:
         return HttpResponse('inform wrong')
+
+
+def logout(request):
+    request.session.clear()
+    return render(request, 'login.html')
