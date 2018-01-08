@@ -32,3 +32,17 @@ def index(request):
 def logout(request):
     request.session.clear()
     return render(request, 'login.html')
+
+
+import inspect
+
+
+class Foo:
+    def render(self):
+        print('%s.%s' % (self.__class__.__name__, inspect.stack()[0][3]))
+        return HttpResponse('ok')
+
+
+def middle(request):
+    print('views.py %s' % inspect.stack()[0][3])
+    return Foo()

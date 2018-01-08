@@ -47,6 +47,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Middle.m1.Row1',
+    'Middle.m1.Row2',
+    'Middle.m1.Row3',
 ]
 
 ROOT_URLCONF = 'pen.urls'
