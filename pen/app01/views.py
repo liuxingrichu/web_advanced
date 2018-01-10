@@ -46,3 +46,11 @@ class Foo:
 def middle(request):
     print('views.py %s' % inspect.stack()[0][3])
     return Foo()
+
+from django.views.decorators.cache import cache_page
+
+# @cache_page(10)
+def cache(request):
+    import time
+    cur_time = time.time()
+    return render(request, 'cache.html', {'cur_time': cur_time})

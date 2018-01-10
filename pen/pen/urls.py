@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^index/', views.index),
     url(r'^logout/', views.logout),
     url(r'^middle/', views.middle),
+    url(r'^cache/', views.cache),
 ]
