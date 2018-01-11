@@ -68,4 +68,8 @@ def signal(request):
 
     models.UserInfo.objects.create(username='Wilson')
     print('end')
+
+    from sg import pizza_done
+
+    pizza_done.send(sender="asdfasdf", toppings=123, size=456)
     return HttpResponse('ok')

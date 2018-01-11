@@ -32,3 +32,15 @@ def after_create(sender, **kwargs):
 
 pre_init.connect(before_create)
 post_init.connect(after_create)
+
+import django.dispatch
+
+pizza_done = django.dispatch.Signal(providing_args=["toppings", "size"])
+
+
+def callback(sender, **kwargs):
+    print("callback")
+    print(sender, kwargs)
+
+
+pizza_done.connect(callback)
