@@ -76,17 +76,25 @@ def signal(request):
 
 
 from django import forms
+# 字段本身仅能验证
+from django.forms import fields
+# 定制插件、定制样式
+from django.forms import widgets
 
 
 class FM(forms.Form):
-    user = forms.CharField(error_messages={'required': '用户名不能为空.'})
-    pwd = forms.CharField(
+    user = fields.CharField(
+        error_messages={'required': '用户名不能为空.'},
+        widget=widgets.Textarea(attrs={'class': 'c1'})
+    )
+    pwd = fields.CharField(
         max_length=12,
         min_length=6,
         error_messages={'required': '密码不能为空.', 'min_length': '密码长度不能小于6',
-                        "max_length": '密码长度不能大于12'}
+                        "max_length": '密码长度不能大于12'},
+        widget=widgets.PasswordInput
     )
-    email = forms.EmailField(
+    email = fields.EmailField(
         error_messages={'required': '邮箱不能为空.', 'invalid': "邮箱格式错误"})
 
 
