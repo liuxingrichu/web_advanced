@@ -92,12 +92,12 @@ class FM(forms.Form):
 
 def fm(request):
     if request.method == 'GET':
-        return render(request, 'fm.html')
+        obj = FM()
+        return render(request, 'fm.html', {'obj': obj})
     elif request.method == 'POST':
         obj = FM(request.POST)
         if obj.is_valid():
             print(obj.cleaned_data)
-            print(obj.cleaned_data.as_json())
         else:
             print(obj.errors)
             print(obj.errors.as_json())

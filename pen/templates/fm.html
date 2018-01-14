@@ -7,9 +7,9 @@
 <body>
     <form method="post" action="/fm/">
         {% csrf_token %}
-        <p><input type="text" name="user" placeholder="用户名">{{ obj.errors.user.0 }}</p>
-        <p><input type="text" name="pwd" placeholder="密码">{{ obj.errors.pwd.0 }}</p>
-        <p><input type="text" name="email" placeholder="邮箱">{{ obj.errors.email.0 }}</p>
+        <p>{{ obj.user }}{{ obj.errors.user.0 }}</p>
+        <p>{{ obj.pwd }}{{ obj.errors.pwd.0 }}</p>
+        <p>{{ obj.email }}{{ obj.errors.email.0 }}</p>
         <input type="submit" value="提交"/>
     </form>
 </body>
