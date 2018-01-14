@@ -85,7 +85,9 @@ from django.forms import widgets
 class FM(forms.Form):
     user = fields.CharField(
         error_messages={'required': '用户名不能为空.'},
-        widget=widgets.Textarea(attrs={'class': 'c1'})
+        widget=widgets.Textarea(attrs={'class': 'c1'}),
+        label='用户名',
+        initial='root'
     )
     pwd = fields.CharField(
         max_length=12,
@@ -97,16 +99,38 @@ class FM(forms.Form):
     email = fields.EmailField(
         error_messages={'required': '邮箱不能为空.', 'invalid': "邮箱格式错误"})
 
+    f = fields.FileField()
+
+    p = fields.FilePathField(path='app01')
+
+    city1 = fields.ChoiceField(
+        choices=[(0, '上海'), (1, '广州'), (2, '东莞')]
+    )
+    city2 = fields.MultipleChoiceField(
+        choices=[(0, '上海'), (1, '广州'), (2, '东莞')]
+    )
+
 
 def fm(request):
     if request.method == 'GET':
-        obj = FM()
+        # 从数据库中获取数据到字典
+        dic = {
+            "user": 'r1',
+            'pwd': '123123',
+            'email': 'sdfsd',
+            'city1': 1,
+            'city2': [1, 2]
+        }
+        # 初始化操作
+        obj = FM(initial=dic)
         return render(request, 'fm.html', {'obj': obj})
     elif request.method == 'POST':
         obj = FM(request.POST)
         if obj.is_valid():
-            print(obj.cleaned_data)
+            # 认证通过后的操作
+            models.UserInf.objects.create(**obj.cleaned_data)
         else:
+            # 错误信息的几种显示形式
             print(obj.errors)
             print(obj.errors.as_json())
             print(obj.errors['user'])
