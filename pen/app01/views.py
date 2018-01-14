@@ -73,3 +73,35 @@ def signal(request):
 
     pizza_done.send(sender="asdfasdf", toppings=123, size=456)
     return HttpResponse('ok')
+
+
+from django import forms
+
+
+class FM(forms.Form):
+    user = forms.CharField(error_messages={'required': '用户名不能为空.'})
+    pwd = forms.CharField(
+        max_length=12,
+        min_length=6,
+        error_messages={'required': '密码不能为空.', 'min_length': '密码长度不能小于6',
+                        "max_length": '密码长度不能大于12'}
+    )
+    email = forms.EmailField(
+        error_messages={'required': '邮箱不能为空.', 'invalid': "邮箱格式错误"})
+
+
+def fm(request):
+    if request.method == 'GET':
+        return render(request, 'fm.html')
+    elif request.method == 'POST':
+        obj = FM(request.POST)
+        if obj.is_valid():
+            print(obj.cleaned_data)
+            print(obj.cleaned_data.as_json())
+        else:
+            print(obj.errors)
+            print(obj.errors.as_json())
+            print(obj.errors['user'])
+            print(obj.errors['user'][0])
+            return render(request, 'fm.html', {'obj': obj})
+        return redirect('/fm/')

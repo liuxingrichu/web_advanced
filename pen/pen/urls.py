@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^middle/', views.middle),
     url(r'^cache/', views.cache),
     url(r'^signal/', views.signal),
+    url(r'^fm/', views.fm),
 ]
